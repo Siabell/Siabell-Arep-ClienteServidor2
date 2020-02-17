@@ -2,7 +2,6 @@
 
 This application implements a web server created with java that supports multiple consecutive requests and returns the requested files including html pages and images. It is also conneted to a postgresql database
 
-[![CircleCI](https://circleci.com/gh/Siabell/Arep-ClienteServidor.svg?style=svg)](https://circleci.com/gh/Siabell/Arep-ClienteServidor)
 
 ## Getting Started
 
