@@ -1,9 +1,12 @@
 package edu.escuelaing.arep;
 
 import java.awt.image.BufferedImage;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.nio.ByteBuffer;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
@@ -60,6 +63,10 @@ public class HttpServerV {
 	    					 System.out.println("por defecto");
 	    					 File file = new File(WEB_ROOT,DEFAULT_FILE);
 	    	 				 sendResponse(out,file,"text/html",outputLine,"200 ok");
+	    				 }else if (header[1].equals("/libros")) {
+	    					 String outputline=getBooks();
+	    					 out.println(outputLine);
+	    				 	 
 	    				 }else {
 				 				File file = new File(WEB_ROOT,fileReq);
 				 				if (!file.exists()) {
@@ -188,6 +195,43 @@ public class HttpServerV {
     		answer = "text/html";
     	}
     	return answer;
+    }
+    
+    
+    
+    private static String getBooks() {
+    	ConnectionDB con = new ConnectionDB();
+    	String ans = "";
+    	try {
+			ConnectionDB.connet();
+			ArrayList<String> libros = ConnectionDB.getBooks();
+			
+			for (String s : libros) {
+	            ans += "<tr><td>" + s + "</td></tr>";
+
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	String outputLine;
+    	outputLine = "HTTP/1.1 200 OK\r\n"
+    	        + "Content-Type: text/html\r\n"
+    	         + "\r\n"
+    	         + "<!DOCTYPE html>\n"
+    	         + "<html>\n"
+    	         + "<head>\n"
+    	         + "<meta charset=\"UTF-8\">\n"
+    	         + "<title>Libros de la base de datos</title>\n"
+    	         + "</head>\n"
+    	         + "<body>\n"
+    	         + "<h1>Libros</h1>\n"
+    	         	+ans
+    	         + "</body>\n"
+    	         + "</html>\n";
+    	
+    	
+		return outputLine;
+    	
     }
     
     
