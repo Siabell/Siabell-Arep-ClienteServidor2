@@ -66,7 +66,6 @@ public class HttpServerV {
 	    				 }else if (header[1].equals("/libros")) {
 	    					 String outputline=getBooks();
 	    					 out.println(outputLine);
-	    				 	 
 	    				 }else {
 				 				File file = new File(WEB_ROOT,fileReq);
 				 				if (!file.exists()) {
@@ -225,7 +224,7 @@ public class HttpServerV {
     	         + "</head>\n"
     	         + "<body>\n"
     	         + "<h1>Libros</h1>\n"
-    	         	+ans
+    	         //	+ans
     	         + "</body>\n"
     	         + "</html>\n";
     	
